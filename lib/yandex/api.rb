@@ -125,12 +125,8 @@ module Killbill #:nodoc:
         # Pass extra parameters for the gateway here
         options = {}
         properties = merge_properties(properties, options)
-        gw_notification = super
 
-        # Retrieve the payment
-        # gw_notification.kb_payment_id =
-
-        gw_notification
+        super(notification, properties, context)
       end
     end
   end
