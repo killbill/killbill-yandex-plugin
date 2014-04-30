@@ -108,11 +108,29 @@ module Killbill #:nodoc:
       end
 
       def build_form_descriptor(kb_account_id, descriptor_fields, properties, context)
-        super
+        # Pass extra parameters for the gateway here
+        options = {}
+        properties = merge_properties(properties, options)
+
+        # Add your custom static hidden tags here
+        options = {
+            :scid => config[:yandex][:scid]
+        }
+        descriptor_fields = merge_properties(descriptor_fields, options)
+
+        super(kb_account_id, descriptor_fields, properties, context)
       end
 
       def process_notification(notification, properties, context)
-        super
+        # Pass extra parameters for the gateway here
+        options = {}
+        properties = merge_properties(properties, options)
+        gw_notification = super
+
+        # Retrieve the payment
+        # gw_notification.kb_payment_id =
+
+        gw_notification
       end
     end
   end
